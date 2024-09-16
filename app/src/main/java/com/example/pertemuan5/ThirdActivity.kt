@@ -11,34 +11,15 @@ import com.example.pertemuan5.databinding.ActivityThirdBinding
 
 class ThirdActivity : AppCompatActivity()
 {
-    private lateinit var binding: ActivityThirdBinding
+    private val binding by lazy { ActivityThirdBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityThirdBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        val name = intent.getStringExtra("EXTRA_NAME")
-
-        with(binding) {
-            btnToSecondActivity.setOnClickListener {
-                val resultIntent = Intent()
-
-                resultIntent.putExtra("EXTRA_NAME", name)
-                resultIntent.putExtra("EXTRA_ADDRESS", editAddress.text.toString())
-
-                setResult(Activity.RESULT_OK, resultIntent)
-                finish()
-            }
-        }
-
+        binding.tvUsername.text = intent.getStringExtra("usernameFromLogin")
+        binding.tvEmail.text = intent.getStringExtra("emailFromLogin")
+        binding.tvPhone.text = intent.getStringExtra("phoneFromLogin")
     }
 }
